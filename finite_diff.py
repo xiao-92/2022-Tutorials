@@ -26,3 +26,4 @@ def func_b(x):
 
 def func_c(x):
     return np.sin(x)
+
