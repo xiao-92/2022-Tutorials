@@ -24,13 +24,11 @@ def solve_anemometer(boundary, n, l, d, k, h):
     
     ta, t0, tn = boundary
     M = make_m_matrix(n, sigma)
-    print(M)
-    sln = np.zeros(n)
-    sln[0] = t0-ta
-    sln[-1] = tn-ta
-    print(sln)
+    B = np.zeros(n)
+    B[0] = t0-ta
+    B[-1] = tn-ta
     
-    return np.linalg.solve(M, sln)
+    return np.linalg.solve(M, B)
     
 def analytical(boundary, x, l, d, k, h):
     P = np.pi * d
@@ -45,20 +43,19 @@ def analytical(boundary, x, l, d, k, h):
     
 def main():
     n = 50
+    n_2 = 50
     l = 1e-3
     d = 5e-6
     k = 200
     h = 1000
     
     boundary = (293.15, 353.15, 343.15)
-    sln = solve_anemometer(boundary, 5, l, d, k, h)
+    sln = solve_anemometer(boundary, n_2, l, d, k, h)
     x = np.linspace(0,l,n)
     a = analytical(boundary, x, l, d, k, h)
-    print(sln)
-    print(a)
     
     plt.plot(x, a, "r")
-    plt.scatter(np.linspace(0,l,5), sln)
+    plt.scatter(np.linspace(0,l,n_2), sln)
     plt.show()
 
 
